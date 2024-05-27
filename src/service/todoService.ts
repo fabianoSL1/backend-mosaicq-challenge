@@ -36,7 +36,7 @@ export class TodoService {
 
     async delete(todoId: number): Promise<Todo> {
         const todo = await this.get(todoId);
-        
+
         await this.todoRepository.delete(todoId);
 
         return todo;

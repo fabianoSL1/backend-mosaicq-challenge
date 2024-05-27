@@ -15,7 +15,7 @@ export class TodoRepositoryPostgres implements TodoRepository {
     async create(createTodo: CreateTodoDTO): Promise<Todo> {
         const result = await this.pool.query(
             "INSERT INTO todo(title, describe) VALUES($1, $2) RETURNING *",
-            [createTodo.title, createTodo.describe]
+            [createTodo.title, createTodo.describe],
         );
 
         const [todo] = result.rows;

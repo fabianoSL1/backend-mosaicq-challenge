@@ -25,7 +25,7 @@ export class TodoController {
             const todoId = +req.params.id;
             const todo = await this.todoService.get(todoId);
             res.json(todo);
-        } catch(err) {
+        } catch (err) {
             next(err);
         }
     }
@@ -43,7 +43,7 @@ export class TodoController {
         try {
             const updateTodo: UpdateTodoDTO = req.body;
             const todoId = +req.params.id;
-            const todo = await this.todoService.update(todoId, updateTodo)
+            const todo = await this.todoService.update(todoId, updateTodo);
             res.json(todo);
         } catch (err) {
             next(err);
@@ -60,16 +60,15 @@ export class TodoController {
         }
     }
 
-
     generateRouter(): Router {
         const route = Router();
-        
+
         route.post("/", this.create.bind(this));
         route.get("/", this.getAll.bind(this));
         route.get("/:id", this.get.bind(this));
         route.put("/:id", this.update.bind(this));
         route.delete("/:id", this.delete.bind(this));
-        
+
         return route;
     }
 }

@@ -2,20 +2,20 @@ import { Request, Response, NextFunction } from "express";
 import { HttpException } from "../exceptions/httpException";
 
 export function handlerExceptions(
-  err: Error,
-  req: Request,
-  res: Response,
-  next: NextFunction
+    err: Error,
+    req: Request,
+    res: Response,
+    next: NextFunction,
 ) {
-  console.error(err.stack);
+    console.error(err.stack);
 
-  let code = 500;
-  let message = "internal server error";
+    let code = 500;
+    let message = "internal server error";
 
-  if (err instanceof HttpException) {
-    code = err.getCode();
-    message = err.getMessage();
-  }
+    if (err instanceof HttpException) {
+        code = err.getCode();
+        message = err.getMessage();
+    }
 
-  return res.status(code).json({ message });
+    return res.status(code).json({ message });
 }
