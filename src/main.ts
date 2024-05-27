@@ -2,12 +2,12 @@ import express from "express";
 import { routes } from "./routes";
 import { handlerExceptions } from "./middleware/handler-exceptions";
 
+const PORT = 3000;
+
 const app = express();
-
-app.use(express.json());
-
-app.use(handlerExceptions);
 
 app.use(routes);
 
-app.listen(3000);
+app.use(handlerExceptions);
+
+app.listen(PORT, () => console.log("running on http://localhost:" +  PORT));
