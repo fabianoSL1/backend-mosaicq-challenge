@@ -1,6 +1,6 @@
 import express from "express";
 import { routes } from "./routes";
-import { handlerExceptions } from "./middleware/handler-exceptions";
+import { handlerExceptions } from "./middlewares/handler-exceptions";
 
 const PORT = 3000;
 
