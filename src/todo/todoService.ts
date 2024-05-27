@@ -1,9 +1,10 @@
-import { CreateTodoDTO } from "../dtos/create-todo";
-import { UpdateTodoDTO } from "../dtos/update-todo";
+import { CreateTodoDTO } from "./dtos/create-todo";
+import { UpdateTodoDTO } from "./dtos/update-todo";
 import { HttpException } from "../exceptions/httpException";
-import { Todo } from "../model/todo";
-import { TodoRepository } from "../repository/todoRepository";
-import { TodoRepositoryPostgres } from "../repository/todoRepositoryPostgres";
+import { Todo } from "./entities/todo";
+
+import { TodoRepositoryPostgres } from "./repositories/todoRepositoryPostgres";
+import { TodoRepository } from "./todoRepository";
 
 export class TodoService {
     private todoRepository: TodoRepository;

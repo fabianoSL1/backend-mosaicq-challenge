@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response, Router } from "express";
-import { TodoService } from "../service/todoService";
-import { CreateTodoDTO } from "../dtos/create-todo";
-import { UpdateTodoDTO } from "../dtos/update-todo";
+import { TodoService } from "./todoService";
+import { CreateTodoDTO } from "./dtos/create-todo";
+import { UpdateTodoDTO } from "./dtos/update-todo";
 
 export class TodoController {
     private todoService: TodoService;

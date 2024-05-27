@@ -1,6 +1,6 @@
-import { CreateTodoDTO } from "../dtos/create-todo";
-import { UpdateTodoDTO } from "../dtos/update-todo";
-import { Todo } from "../model/todo";
+import { CreateTodoDTO } from "./dtos/create-todo";
+import { UpdateTodoDTO } from "./dtos/update-todo";
+import { Todo } from "./entities/todo";
 
 export interface TodoRepository {
     create(createTodo: CreateTodoDTO): Promise<Todo>;

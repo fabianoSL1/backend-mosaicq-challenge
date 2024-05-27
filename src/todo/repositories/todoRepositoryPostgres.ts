@@ -1,9 +1,9 @@
 import { CreateTodoDTO } from "../dtos/create-todo";
 import { UpdateTodoDTO } from "../dtos/update-todo";
-import { TodoRepository } from "./todoRepository";
-import { Todo } from "../model/todo";
+import { TodoRepository } from "../todoRepository";
+import { Todo } from "../entities/todo";
 import { Pool } from "pg";
-import { connection } from "../database/config";
+import { connection } from "../../database/config";
 
 export class TodoRepositoryPostgres implements TodoRepository {
     private pool: Pool;
