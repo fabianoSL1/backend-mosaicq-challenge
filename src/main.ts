@@ -5,7 +5,7 @@ import { handlerExceptions } from "./middleware/handler-exceptions";
 const PORT = 3000;
 
 const app = express();
-
+app.use(express.json())
 app.use(routes);
 
 app.use(handlerExceptions);

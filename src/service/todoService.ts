@@ -20,7 +20,7 @@ export class TodoService {
         const todo = await this.todoRepository.get(todoId);
 
         if (!todo) {
-            throw new HttpException(404, "not found");
+            throw new HttpException(404, "todo not found");
         }
 
         return todo;
@@ -31,13 +31,13 @@ export class TodoService {
     }
 
     async update(todoId: number, updateTodo: UpdateTodoDTO): Promise<Todo> {
-        return await this.update(todoId, updateTodo);
+        return await this.todoRepository.update(todoId, updateTodo);
     }
 
     async delete(todoId: number): Promise<Todo> {
         const todo = await this.get(todoId);
-
-        await this.delete(todoId);
+        
+        await this.todoRepository.delete(todoId);
 
         return todo;
     }
