@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from "express";
 import { HttpException } from "../exceptions/httpException";
 
-export function handlerExceptions(
+export function exceptionsMiddleware(
     err: Error,
     req: Request,
     res: Response,

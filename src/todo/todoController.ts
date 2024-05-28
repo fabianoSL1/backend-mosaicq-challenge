@@ -2,6 +2,7 @@ import { NextFunction, Request, Response, Router } from "express";
 import { TodoService } from "./todoService";
 import { CreateTodoDTO } from "./dtos/create-todo";
 import { UpdateTodoDTO } from "./dtos/update-todo";
+import { authMiddleware } from "../middlewares/authMiddleware";
 
 export class TodoController {
     private todoService: TodoService;
@@ -63,6 +64,8 @@ export class TodoController {
     generateRouter(): Router {
         const route = Router();
 
+        route.use(authMiddleware);
+        
         route.post("/", this.create.bind(this));
         route.get("/", this.getAll.bind(this));
         route.get("/:id", this.get.bind(this));
