@@ -5,8 +5,10 @@
   "main": "index.js",
   "scripts": {
     "build": "npx tsc",
-    "dev": "npx tsc && node build/main.js",
-    "init": "npx tsc && node build/database/init.js"
+    "start": "node build/main.js",
+    "init": "npm run build && node build/database/init.js",
+    "dev": "npm run build && npm run start",
+    "prod": "npm run init && npm run start"
   },
   "keywords": [],
   "author": "",

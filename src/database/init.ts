@@ -49,10 +49,13 @@ async function createTableTodo(client: Client) {
 
 
 async function createTypeTodoStatus(client: Client) {
-    const todoStatus = Object.keys(TodoStatus).map(status => `'${status}'`);
-    const statusStmt = `CREATE TYPE Todo_status as ENUM (${todoStatus.join(',')})`;
+    const dropStmt = "DROP TYPE IF EXISTS Todo_status CASCADE";
 
-    await client.query(statusStmt);
+    const todoStatus = Object.keys(TodoStatus).map(status => `'${status}'`);
+    const upStmt = `CREATE TYPE Todo_status as ENUM (${todoStatus.join(',')})`;
+
+    await client.query(dropStmt);
+    await client.query(upStmt);
 }
 
 
