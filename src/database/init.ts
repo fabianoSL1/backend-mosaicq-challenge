@@ -6,7 +6,6 @@ init_database();
 
 async function init_database() {
     const client = await connectEnsurreSuccess();
-    await dropTableTodo(client);
     await createTableTodo(client);
     await client.end();
 }
@@ -28,11 +27,6 @@ async function connectEnsurreSuccess(): Promise<Client> {
     }
 }
 
-async function dropTableTodo(client: Client) {
-    const stmt = "DROP TABLE IF EXISTS todo";
-    await client.query(stmt);
-}
-
 async function createTableTodo(client: Client) {
     await createTypeTodoStatus(client);
     
@@ -49,12 +43,9 @@ async function createTableTodo(client: Client) {
 
 
 async function createTypeTodoStatus(client: Client) {
-    const dropStmt = "DROP TYPE IF EXISTS Todo_status CASCADE";
-
     const todoStatus = Object.keys(TodoStatus).map(status => `'${status}'`);
-    const upStmt = `CREATE TYPE Todo_status as ENUM (${todoStatus.join(',')})`;
-
-    await client.query(dropStmt);
+    const upStmt = `CREATE TYPE IF NOT EXISTS Todo_status as ENUM (${todoStatus.join(',')})`;
+    
     await client.query(upStmt);
 }
 
