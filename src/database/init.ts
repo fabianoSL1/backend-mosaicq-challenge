@@ -34,7 +34,7 @@ async function createTableTodo(client: Client) {
         id SERIAL PRIMARY KEY,
         title VARCHAR(255) NOT NULL,
         describe VARCHAR(255) NOT NULL,
-        status Todo_status NOT NULL DEFAULT 'PENDING',
+        status todo_status NOT NULL DEFAULT 'PENDING',
         createAt timestamp NOT NULL
     )`;
     
@@ -44,9 +44,16 @@ async function createTableTodo(client: Client) {
 
 async function createTypeTodoStatus(client: Client) {
     const todoStatus = Object.keys(TodoStatus).map(status => `'${status}'`);
-    const upStmt = `CREATE TYPE IF NOT EXISTS Todo_status as ENUM (${todoStatus.join(',')})`;
     
-    await client.query(upStmt);
+    const stmt = `DO $$
+        BEGIN
+            IF NOT EXISTS (SELECT 1 FROM pg_type WHERE typname = 'todo_status') THEN
+                CREATE TYPE todo_status as ENUM (${todoStatus.join(',')});
+            END IF;
+        END
+    $$`
+
+    await client.query(stmt);
 }
 
 
