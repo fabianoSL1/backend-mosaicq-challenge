@@ -1,6 +1,9 @@
+import { TodoStatus } from "./todoStatus";
+
 export type Todo = {
     id: number;
     title: string;
     describe: string;
-    done: boolean;
+    status: TodoStatus;
+    createAt: Date;
 };

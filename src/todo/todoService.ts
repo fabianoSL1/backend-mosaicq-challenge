@@ -5,6 +5,7 @@ import { Todo } from "./entities/todo";
 
 import { TodoRepositoryPostgres } from "./repositories/todoRepositoryPostgres";
 import { TodoRepository } from "./todoRepository";
+import { TodoStatus } from "./entities/todoStatus";
 
 export class TodoService {
     private todoRepository: TodoRepository;
@@ -32,6 +33,14 @@ export class TodoService {
     }
 
     async update(todoId: number, updateTodo: UpdateTodoDTO): Promise<Todo> {
+        const invalidStatus = !Object.values(TodoStatus).includes(
+            updateTodo.status
+        );
+
+        if (invalidStatus) {
+            throw new HttpException(400, "invalid todo status");
+        }
+
         return await this.todoRepository.update(todoId, updateTodo);
     }
 

@@ -14,8 +14,8 @@ export class TodoRepositoryPostgres implements TodoRepository {
 
     async create(createTodo: CreateTodoDTO): Promise<Todo> {
         const result = await this.pool.query(
-            "INSERT INTO todo(title, describe) VALUES($1, $2) RETURNING *",
-            [createTodo.title, createTodo.describe],
+            "INSERT INTO todo(title, describe, createAt) VALUES($1, $2, $3) RETURNING *",
+            [createTodo.title, createTodo.describe, new Date().toISOString()]
         );
 
         const [todo] = result.rows;
@@ -40,12 +40,12 @@ export class TodoRepositoryPostgres implements TodoRepository {
 
     async update(todoId: number, updateTodo: UpdateTodoDTO): Promise<Todo> {
         const stmt =
-            "UPDATE todo SET title = $2, describe = $3, done = $4 WHERE id = $1 RETURNING *";
+            "UPDATE todo SET title = $2, describe = $3, status = $4 WHERE id = $1 RETURNING *";
         const result = await this.pool.query(stmt, [
             todoId,
             updateTodo.title,
             updateTodo.describe,
-            updateTodo.done,
+            updateTodo.status,
         ]);
         const [todo] = result.rows;
 

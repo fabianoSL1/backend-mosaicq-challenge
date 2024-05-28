@@ -1,5 +1,7 @@
+import { TodoStatus } from "../entities/todoStatus";
+
 export type UpdateTodoDTO = {
     title: string;
     describe: string;
-    done: boolean;
+    status: TodoStatus;
 };
