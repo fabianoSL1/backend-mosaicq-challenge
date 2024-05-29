@@ -2,6 +2,7 @@
 
 ### Docker
 ```bash
+    cp .env.example .env
     sudo docker compose build --no-cache api
     sudo docker compose up
 ```
