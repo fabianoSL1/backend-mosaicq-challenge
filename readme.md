@@ -38,9 +38,11 @@ Existe o middleware ExceptionsMiddlare que captura todas as exceções que ocorr
 - HttpException: uma exception que precisa de um status code e uma mensagem
 
 Caso precise mudar de banco de dados ou utilizar um Orm basta implementar outra classe com TodoRepository e alterar a instancia no TodoService.
-[](/doc/diagrama.png)
+
+![](./doc/diagrama.png)
 
 Os recursos podem ser protegidos pelo AuthMiidlleware.
 
 Para obter um token basta realizar POST /auth.
-[](/doc/fluxo_de_dados.png)
+
+![](./doc/fluxo_de_dados.png)
