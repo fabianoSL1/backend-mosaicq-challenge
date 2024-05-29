@@ -29,7 +29,13 @@ export class TodoService {
     }
 
     async getAll(): Promise<Todo[]> {
-        return await this.todoRepository.getAll();
+        const todoList = await this.todoRepository.getAll();
+
+        if (!todoList) {
+            throw new HttpException(500, "");
+        }
+
+        return todoList;
     }
 
     async update(todoId: number, updateTodo: UpdateTodoDTO): Promise<Todo> {
@@ -38,7 +44,7 @@ export class TodoService {
         );
 
         if (invalidStatus) {
-            throw new HttpException(400, "invalid todo status");
+            throw new HttpException(422, "invalid todo status");
         }
 
         return await this.todoRepository.update(todoId, updateTodo);
