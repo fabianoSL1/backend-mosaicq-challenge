@@ -1,9 +1,8 @@
 import { NextFunction, Request, Response, Router } from "express";
 import { TodoService } from "./todoService";
-import { CreateTodoDTO } from "./dtos/create-todo";
-import { UpdateTodoDTO } from "./dtos/update-todo";
+import { CreateTodoDTO, createTodoDtoSchema } from "./dtos/create-todo";
+import { UpdateTodoDTO, updateTodoDtoSchema } from "./dtos/update-todo";
 import { authMiddleware } from "../middlewares/authMiddleware";
-
 export class TodoController {
     private todoService: TodoService;
 
@@ -13,7 +12,10 @@ export class TodoController {
 
     private async create(req: Request, res: Response, next: NextFunction) {
         try {
-            const createTodo: CreateTodoDTO = req.body;
+            const createTodo: CreateTodoDTO = createTodoDtoSchema.parse(
+                req.body
+            );
+
             const todo = await this.todoService.create(createTodo);
             res.status(201).json(todo);
         } catch (err) {
@@ -42,7 +44,10 @@ export class TodoController {
 
     private async update(req: Request, res: Response, next: NextFunction) {
         try {
-            const updateTodo: UpdateTodoDTO = req.body;
+            const updateTodo = updateTodoDtoSchema.parse(
+                req.body
+            );
+
             const todoId = +req.params.id;
             const todo = await this.todoService.update(todoId, updateTodo);
             res.json(todo);
@@ -65,7 +70,7 @@ export class TodoController {
         const route = Router();
 
         route.use(authMiddleware);
-        
+
         route.post("/", this.create.bind(this));
         route.get("/", this.getAll.bind(this));
         route.get("/:id", this.get.bind(this));
